@@ -36,16 +36,23 @@ class Main {
         Date sortingDate1;
         Date sortingDate2;
         List <Date[]> sortedDateList = new ArrayList<>(dateList);
-        int count = 0;
-            for (int i = 1; i < sortedDateList.size(); i++) {
+
+            for (int i = 1; i < dateList.size(); i++) {
                 sortingDate1 = dateList.get(i - 1)[0];
                 sortingDate2 = dateList.get(i)[0];
-                if (sortingDate1.compareTo(sortingDate2) == 1) {
-                    sortedDateList.set(i - 1, dateList.get(i));
+                if (sortingDate1.after(sortingDate2)) {
                     sortedDateList.set(i, dateList.get(i - 1));
+                    sortedDateList.set(i - 1, dateList.get(i));
                 }
             }
 
+            for (Date[] d : dateList) {
+                System.out.println(Arrays.asList(d));
+            }
+            System.out.println("");
+            for (Date[] d : sortedDateList) {
+                System.out.println(Arrays.asList(d));
+            }
         // List of free time
         List <Long> freeTimeLongList = new ArrayList<>(strArr.length);
         long dateToMs1 = 0;
@@ -69,14 +76,15 @@ class Main {
         minutes = (int) ((maxFreeTimeLong - hours * (60 * 60 * 1000)) / (60 * 1000));
 
         if (valueOf(hours).length() < 2) {
-            resultDateString = "0" + hours;
+            resultDateString = resultDateString + "0" + hours;
         }
+
         else {
             resultDateString = resultDateString + hours;
         }
         resultDateString = resultDateString + ":";
         if (valueOf(minutes).length() < 2) {
-            resultDateString = "0" + minutes;
+            resultDateString = resultDateString + "0" + minutes;
         }
         else {
             resultDateString = resultDateString + minutes;
@@ -86,8 +94,35 @@ class Main {
     }
 
     public static void main (String[] args) {
+        // keep this function call here
+/*
         Scanner s = new Scanner(System.in);
         System.out.print(MostFreeTime(s.nextLine()));
-    }
+*/
 
+
+        String[] array = new String[] {"12:15PM-02:00PM","09:00AM-10:00AM","10:30AM-12:00PM"};
+        try {
+            System.out.print(MostFreeTime(array));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        /*String[] strArr;
+        List <String> strList = new ArrayList<>();
+        Scanner s = new Scanner(System.in);
+        String templ;
+
+        while (true) {
+            templ = s.nextLine();
+            if (templ == null)
+            {
+                break;
+            }
+            strList.add(templ);
+        }
+        strArr = strList.toArray(new String[10]);
+        System.out.print(MostFreeTime(strArr));*/
+    }
 }
